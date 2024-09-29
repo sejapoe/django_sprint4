@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse_lazy
 
 User = get_user_model()
 
@@ -57,10 +58,29 @@ class Post(BaseModel):
                                  verbose_name="Местоположение")
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  null=True, verbose_name="Категория")
+    image = models.ImageField(verbose_name='Изображение',
+                              upload_to='post_images', blank=True)
 
     class Meta:
         verbose_name = "публикация"
         verbose_name_plural = "Публикации"
 
+    def get_absolute_url(self):
+        return reverse_lazy('blog:post_detail', kwargs={'post_id': self.pk})
+
     def __str__(self):
         return self.title
+
+
+class Comment(BaseModel):
+    text = models.TextField(verbose_name="Текст")
+
+    author = models.ForeignKey(User, on_delete=models.CASCADE,
+                               verbose_name="Автор комментария")
+
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+                             verbose_name="Пост комментария")
+
+    class Meta:
+        verbose_name = "комментарий"
+        verbose_name_plural = "Комментарии"
