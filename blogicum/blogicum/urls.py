@@ -31,8 +31,7 @@ urlpatterns = [
         template_name='registration/registration_form.html',
         form_class=CustomUserCreationForm,
         success_url=reverse_lazy('blog:index')),
-         name='registration'),
+        name='registration'),
     path('auth/', include('django.contrib.auth.urls')),
     path('', include('blog.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
