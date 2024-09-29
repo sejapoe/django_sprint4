@@ -7,8 +7,8 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.timezone import now
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, \
-    DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, \
+    DetailView, DeleteView
 
 from .forms import CommentForm
 from .models import Post, Category, Comment
